@@ -8,7 +8,9 @@ function App() {
   return (
     <div className="App">
       <Title />
-      <DragAndDrop />
+      <div className="container-body">
+        <DragAndDrop />
+      </div>
     </div>
   );
 }
