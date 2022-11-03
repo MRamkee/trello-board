@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Data } from "../interfaces";
 import { AddNewItem } from "./AddNewItem";
 import { CardItem } from "./CardItem";
@@ -42,8 +42,6 @@ export const ContainerCards = ({
   handleUpdateList,
   updateNewCardData
 }: Props) => {
-  //  console.log(items);
-  //const [cardItems, setCardItems] = useState<any[]>(items);
   const [isNewItemEnabled, setNewItem] = useState(false);
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -69,7 +67,7 @@ export const ContainerCards = ({
       {
         id: cardItems?.length + Math.floor(Math.random() * 100),
         content: data?.name,
-        cardName: data.cardName,
+        cardName: cardName,
         desc: data?.desc
       }
     ];
@@ -109,7 +107,7 @@ export const ContainerCards = ({
           </a>
           <div className="content">
             <AddNewItem
-              card={cardName}
+              card={selectedCard}
               onSubmit={(item) => constructItems(item)}
               onCancel={() => (window.location.href = "#")}
             />
