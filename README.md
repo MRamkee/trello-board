@@ -2,6 +2,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+### <span aria-hidden="true">✅</span> Deploy Preview for *ramkee-trello-board* ready!
+
+
+|  Name | Link |
+|---------------------------------|------------------------|
+|<span aria-hidden="true">🔨</span> Latest commit | 1275fe87e4457d268d51c2a218786c7b3c4ffca9 |
+|<span aria-hidden="true">🔍</span> Latest deploy log | https://app.netlify.com/sites/ramkee-trello-board/deploys/6364215ba29f280008f9b649 |
+|<span aria-hidden="true">😎</span> Deploy Preview | [https://deploy-preview-5--ramkee-trello-board.netlify.app/](https://deploy-preview-5--ramkee-trello-board.netlify.app/) |
+|<span aria-hidden="true">📱</span> Preview on mobile | <details><summary> Toggle QR Code... </summary><br /><br />![QR Code](https://app.netlify.com/qr-code/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJodHRwczovL2RlcGxveS1wcmV2aWV3LTUtLXJhbWtlZS10cmVsbG8tYm9hcmQubmV0bGlmeS5hcHAifQ.UfdK9hDEDXbl2oJYb9vfCTuFljwDSKqx0_HToiqkyTI)<br /><br />_Use your smartphone camera to open QR code link._</details> |
+---
+
+_To edit notification comments on pull requests, go to your [Netlify site settings](https://app.netlify.com/sites/ramkee-trello-board/settings/deploys#deploy-notifications)._
+
 ## Available Scripts
 
 In the project directory, you can run:
