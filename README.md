@@ -2,8 +2,6 @@
 
 ![image](https://user-images.githubusercontent.com/7554386/199840189-eadf6686-5592-486b-81ae-2e551bd22006.png)
 
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 <h1> [Live Demo](https://ramkee-trello-board.netlify.app/) <h1>
 
 ### <span aria-hidden="true">✅</span> Deploy Preview for *ramkee-trello-board* ready!
