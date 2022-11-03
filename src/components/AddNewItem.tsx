@@ -13,13 +13,13 @@ export const AddNewItem = ({ card, onSubmit, onCancel }: INewItem) => {
     <>
       <div style={{ backgroundColor: "palegoldenrod" }}>
         <div className="new-item-container">
-          <label title="Item name"> Item name </label>
+          <label title="task name"> Task Title </label>
           <input
             type="text"
             name="itemName"
             onChange={(e) => setItemName(e.target.value)}
           />
-          <label title="Item name"> Description </label>
+          <label title="Task description"> Description </label>
           <input
             type="text"
             name="itemDescription"
