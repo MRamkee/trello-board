@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Data } from "../interfaces";
 
 interface Props {
@@ -13,14 +14,28 @@ export const CardItem = ({ data, handleDragging }: Props) => {
   const handleDragEnd = () => handleDragging(false);
 
   return (
-    <div
-      className="grid-item"
-      draggable
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      key={data.id}
-    >
-      <p>{data.content}</p>
-    </div>
+    <>
+      <div
+        className="grid-item"
+        draggable
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        key={data.id}
+        onClick={() => (window.location.href = `#${data.id}`)}
+      >
+        <p>{data.content}</p>
+      </div>
+
+      {/** Task Details Modal  */}
+      <div id={data.id.toString()} className="overlay">
+        <div className="popup">
+          <h2>{data.content}</h2>
+          <a className="close" href="#">
+            &times;
+          </a>
+          <div className="content">{data.desc}</div>
+        </div>
+      </div>
+    </>
   );
 };

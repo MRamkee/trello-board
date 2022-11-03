@@ -17,7 +17,7 @@ interface cardProps {
   handleDragging: (dragging: boolean) => void;
 }
 
-const getItems = () => {
+export const getItems = () => {
   const t = localStorage?.getItem("items") as any;
   const availableItems = t ? JSON.parse(t) : [];
   return availableItems;
@@ -26,8 +26,9 @@ const getItems = () => {
 export const UpdatedCardItems = ({ cardName, handleDragging }: cardProps) => {
   const cardItems = getItems();
   return cardItems.map(
-    (item: any, index: number) =>
-      cardName === item.cardName && (
+    (item: any) =>
+      cardName === item.cardName &&
+      item.content && (
         <CardItem data={item} key={item.id} handleDragging={handleDragging} />
       )
   );
@@ -59,36 +60,21 @@ export const ContainerCards = ({
 
   const addNewItem = (card: string) => {
     setNewItem(true);
+    window.location.href = "#new-task";
   };
 
   const constructItems = (data: any) => {
-    // setCardItems([
-    //   ...cardItems,
-    //   {
-    //     id: cardItems?.length + Math.floor(Math.random() * 100),
-    //     content: data?.name,
-    //     cardName: cardName
-    //   }
-    // ]);
-    localStorage.setItem(
-      "items",
-      JSON.stringify([
-        ...cardItems,
-        {
-          id: cardItems?.length + Math.floor(Math.random() * 100),
-          content: data?.name,
-          cardName: cardName
-        }
-      ])
-    );
-    updateNewCardData?.([
+    const updatedNewlyAddedItem = [
       ...cardItems,
       {
         id: cardItems?.length + Math.floor(Math.random() * 100),
         content: data?.name,
-        cardName: cardName
+        cardName: data.cardName,
+        desc: data?.desc
       }
-    ]);
+    ];
+    localStorage.setItem("items", JSON.stringify(updatedNewlyAddedItem));
+    updateNewCardData?.(updatedNewlyAddedItem);
   };
 
   return (
@@ -98,12 +84,14 @@ export const ContainerCards = ({
       onDrop={handleDrop}
       key={cardName}
     >
-      <h2>{cardName}</h2>
+      <h2 className="bottom-line">{cardName}</h2>
       {/** List the available items in a given card*/}
       <UpdatedCardItems cardName={cardName} handleDragging={handleDragging} />
 
       {/** New Item Container */}
-      <button onClick={() => addNewItem(cardName)}>Add new item</button>
+      <button className="btn" onClick={() => addNewItem(cardName)}>
+        Add new task
+      </button>
       {isNewItemEnabled && (
         <AddNewItem
           card={cardName}
@@ -111,6 +99,23 @@ export const ContainerCards = ({
           onCancel={() => setNewItem(false)}
         />
       )}
+
+      {/** New Board Modal 
+      <div id="new-task" className="overlay">
+        <div className="popup">
+          <h2>Add New Task</h2>
+          <a className="close" href="#">
+            &times;
+          </a>
+          <div className="content">
+            <AddNewItem
+              card={cardName}
+              onSubmit={(item) => constructItems(item)}
+              onCancel={() => (window.location.href = "#")}
+            />
+          </div>
+        </div>
+      </div>*/}
     </div>
   );
 };

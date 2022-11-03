@@ -1,29 +1,32 @@
-import { ContainerCards } from "./ContainerCards";
+import { uniqBy } from "lodash";
+import { ContainerCards, getItems } from "./ContainerCards";
 import { useDragAndDrop } from "./UseDragAndDrop";
-import { data } from "../assets";
-import { useEffect, useState } from "react";
+import { data, initialCards } from "../assets";
+import { useState } from "react";
 import { AddNewItem } from "./AddNewItem";
-import { Data } from "../interfaces";
+
+// Move this to helper
+export const getCards = () => {
+  const t = localStorage?.getItem("cards") as any;
+  const availableCards = t ? JSON.parse(t) : [];
+  return availableCards;
+};
 
 export const DragAndDrop = () => {
-  const initialCards: any[] = [
-    {
-      id: 1,
-      name: "Todo"
-    },
-    {
-      id: 2,
-      name: "In Progress"
-    },
-    {
-      id: 3,
-      name: "Completed"
+  const getInitialCards = () => {
+    const cachedCards = uniqBy(getCards(), "cardName")?.filter((item) =>
+      Boolean(item.cardName)
+    );
+    if (cachedCards?.length > 0) {
+      return cachedCards;
+    } else {
+      localStorage.setItem("cards", JSON.stringify(initialCards));
+      return initialCards;
     }
-  ];
+  };
 
   const [initialData, setData] = useState(data);
-  const [newCard, setNewCard] = useState(false);
-  const [cards, setCards] = useState<any[]>(initialCards);
+  const [cards, setCards] = useState<any[]>(getInitialCards());
   const [myList, setMyList] = useState([]);
 
   const {
@@ -33,17 +36,22 @@ export const DragAndDrop = () => {
     handleUpdateList
   } = useDragAndDrop(initialData);
 
-  const test = (data1: any) => {
-    console.log(localStorage.getItem("items"));
-    setData(data1);
+  const addNewCard = (card: any) => {
+    const updatedCards = [
+      ...cards,
+      { cardName: card?.name, id: cards?.length + 1 }
+    ];
+    setCards(updatedCards);
+    localStorage.setItem("cards", JSON.stringify(updatedCards));
+    window.location.href = "#";
   };
 
   const NewBoard = () => {
     return (
       <div>
         <AddNewItem
-          onSubmit={(item) => setCards([...cards, item?.name])}
-          onCancel={() => setNewCard(false)}
+          onSubmit={(item) => addNewCard(item)}
+          onCancel={() => (window.location.href = "#")}
         />
       </div>
     );
@@ -56,17 +64,34 @@ export const DragAndDrop = () => {
           <>
             <ContainerCards
               items={myList}
-              cardName={container.name}
+              cardName={container.cardName}
               key={index}
               isDragging={isDragging}
               handleDragging={handleDragging}
               handleUpdateList={handleUpdateList}
-              updateNewCardData={test}
+              updateNewCardData={setData}
             />
           </>
         ))}
-      <button onClick={() => setNewCard(true)}>Add new board</button>
-      {newCard && <NewBoard />}
+
+      <div>
+        <button onClick={() => (window.location.href = "#new-board")}>
+          Add new board
+        </button>
+
+        {/** New Board Modal */}
+        <div id="new-board" className="overlay">
+          <div className="popup">
+            <h2>Add New Board</h2>
+            <a className="close" href="#">
+              &times;
+            </a>
+            <div className="content">
+              <NewBoard />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

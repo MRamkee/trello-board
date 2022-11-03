@@ -28,7 +28,9 @@ export const AddNewItem = ({ card, onSubmit, onCancel }: INewItem) => {
         </div>
         <button
           disabled={!Boolean(itemName)}
-          onClick={() => onSubmit?.({ name: itemName, desc: itemDesc })}
+          onClick={() =>
+            onSubmit?.({ name: itemName, desc: itemDesc, cardName: card })
+          }
         >
           Save
         </button>
