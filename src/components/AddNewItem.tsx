@@ -13,28 +13,34 @@ export const AddNewItem = ({ card, onSubmit, onCancel }: INewItem) => {
     <>
       <div style={{ backgroundColor: "palegoldenrod" }}>
         <div className="new-item-container">
-          <label title="task name"> Task Title </label>
-          <input
-            type="text"
-            name="itemName"
-            onChange={(e) => setItemName(e.target.value)}
-          />
-          <label title="Task description"> Description </label>
-          <input
-            type="text"
-            name="itemDescription"
-            onChange={(e) => setItemDesc(e.target.value)}
-          />
+          <div className="form-field">
+            <label title="task name"> Task Title </label>
+            <input
+              type="text"
+              name="itemName"
+              onChange={(e) => setItemName(e.target.value)}
+            />
+          </div>
+          <div className="form-field">
+            <label title="Task description"> Description </label>
+            <input
+              type="text"
+              name="itemDescription"
+              onChange={(e) => setItemDesc(e.target.value)}
+            />
+          </div>
         </div>
-        <button
-          disabled={!Boolean(itemName)}
-          onClick={() =>
-            onSubmit?.({ name: itemName, desc: itemDesc, cardName: card })
-          }
-        >
-          Save
-        </button>
-        <button onClick={onCancel}>Cancel</button>
+        <div className="form-footer">
+          <button
+            disabled={!Boolean(itemName)}
+            onClick={() =>
+              onSubmit?.({ name: itemName, desc: itemDesc, cardName: card })
+            }
+          >
+            Save
+          </button>
+          <button onClick={onCancel}>Cancel</button>
+        </div>
       </div>
     </>
   );
