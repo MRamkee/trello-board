@@ -1,5 +1,5 @@
 export interface Data {
   id: number;
-  content: string;
+  content?: string;
   cardName: any;
 }
