@@ -17,9 +17,15 @@ interface cardProps {
   handleDragging: (dragging: boolean) => void;
 }
 
+const getItems = () => {
+  const t = localStorage?.getItem("items") as any;
+  const availableItems = t ? JSON.parse(t) : [];
+  return availableItems;
+};
+
 export const UpdatedCardItems = ({ cardName, handleDragging }: cardProps) => {
-  const cardItems = JSON.parse(localStorage?.getItem?.("items")! || "") || [];
-  return cardItems?.map(
+  const cardItems = getItems();
+  return cardItems.map(
     (item: any, index: number) =>
       cardName === item.cardName && (
         <CardItem data={item} key={item.id} handleDragging={handleDragging} />
@@ -41,8 +47,6 @@ export const ContainerCards = ({
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
-
-  const getItems = () => JSON.parse(localStorage?.getItem("items") as any);
 
   var cardItems = getItems();
 

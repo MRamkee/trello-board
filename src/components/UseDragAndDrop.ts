@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { uniqBy } from "lodash";
+
 import { Data } from "../interfaces";
 import { data } from "../assets";
 
 export const useDragAndDrop = (initialState: any[]) => {
   const [isDragging, setIsDragging] = useState(false);
-  const availableItems =
-    JSON.parse(localStorage?.getItem("items") as any) || data;
+  const t = localStorage?.getItem("items") as any;
+  const availableItems = t ? JSON.parse(t) : [];
 
   const cardItems = uniqBy([...initialState, ...availableItems], "id");
-
-  console.log("All Card Items", [...initialState, ...availableItems]);
 
   const [listItems, setListItems] = useState<any[]>(cardItems);
 
@@ -23,7 +22,7 @@ export const useDragAndDrop = (initialState: any[]) => {
       setListItems((prev) => {
         let updatedCardItems = [
           card!,
-          ...prev.filter((item) => item.id !== id)
+          ...prev.filter((item) => item.id !== id && item.content)
         ];
         localStorage.setItem("items", JSON.stringify(updatedCardItems));
         return updatedCardItems;
