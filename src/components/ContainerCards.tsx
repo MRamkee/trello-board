@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import { Data } from "../interfaces";
 import { AddNewItem } from "./AddNewItem";
 import { CardItem } from "./CardItem";
@@ -42,7 +43,6 @@ export const ContainerCards = ({
   handleUpdateList,
   updateNewCardData
 }: Props) => {
-  const [isNewItemEnabled, setNewItem] = useState(false);
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
@@ -57,7 +57,7 @@ export const ContainerCards = ({
   };
 
   const addNewItem = (card: string) => {
-    setNewItem(true);
+    localStorage.setItem("cardName", card);
     window.location.href = "#new-task";
   };
 
@@ -67,12 +67,13 @@ export const ContainerCards = ({
       {
         id: cardItems?.length + Math.floor(Math.random() * 100),
         content: data?.name,
-        cardName: cardName,
+        cardName: localStorage.getItem("cardName") || cardName,
         desc: data?.desc
       }
     ];
     localStorage.setItem("items", JSON.stringify(updatedNewlyAddedItem));
     updateNewCardData?.(updatedNewlyAddedItem);
+    window.location.href = "#";
   };
 
   return (
@@ -90,15 +91,15 @@ export const ContainerCards = ({
       <button className="btn" onClick={() => addNewItem(cardName)}>
         Add new task
       </button>
-      {isNewItemEnabled && (
+      {/* {isNewItemEnabled && (
         <AddNewItem
           card={cardName}
           onSubmit={(item) => constructItems(item)}
           onCancel={() => setNewItem(false)}
         />
-      )}
+      )} */}
 
-      {/** New Board Modal 
+      {/** New Board Modal */}
       <div id="new-task" className="overlay">
         <div className="popup">
           <h2>Add New Task</h2>
@@ -107,13 +108,13 @@ export const ContainerCards = ({
           </a>
           <div className="content">
             <AddNewItem
-              card={selectedCard}
+              card={cardName}
               onSubmit={(item) => constructItems(item)}
               onCancel={() => (window.location.href = "#")}
             />
           </div>
         </div>
-      </div>*/}
+      </div>
     </div>
   );
 };

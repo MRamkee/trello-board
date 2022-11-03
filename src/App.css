@@ -46,6 +46,28 @@
 .container-body {
 }
 
+/** Form */
+.form-field{
+  text-align: left;
+  align-items: start;
+  align-content: start;
+  width: min-content;
+  color: #333;
+  margin: 5px;
+}
+.new-item-container {
+  display: inline-block;
+  margin: 10px;
+  width: -webkit-fill-available;
+}
+
+.form-footer {
+  display: flex;
+    float: right;
+    gap: 10px;
+}
+
+
 /** Grid Items */
 .grid {
   display: grid;
@@ -71,12 +93,6 @@
   font-size: 1.25rem !important;
   box-shadow: 5px 5px 5px;
   border-radius: 5px;
-}
-
-.new-item-container {
-  display: inline-block;
-  margin: 10px;
-  width: 60%;
 }
 
 
