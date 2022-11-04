@@ -1,6 +1,6 @@
 # Trello / JIRA board
 
-![image](https://user-images.githubusercontent.com/7554386/199840189-eadf6686-5592-486b-81ae-2e551bd22006.png)
+![image](https://user-images.githubusercontent.com/7554386/199990136-1dcd0a34-547e-4653-a9db-6290139c65d2.png)
 
 <h1> [Live Demo](https://ramkee-trello-board.netlify.app/) <h1>
 
