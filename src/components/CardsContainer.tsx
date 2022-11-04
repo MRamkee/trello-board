@@ -87,9 +87,9 @@ export const ContainerCards = ({
         <h2 className="bottom-line" data-testid="card-title">
           {cardName}
         </h2>
-        <a className="close" href="#" data-testid="card-close">
+        {/* <a className="close" href="#" data-testid="card-close">
           &times;
-        </a>
+        </a> */}
       </span>
       {/** List the available items in a given card*/}
       <UpdatedCardItems cardName={cardName} handleDragging={handleDragging} />
