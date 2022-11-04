@@ -11,7 +11,7 @@ export const AddNewItem = ({ card, onSubmit, onCancel }: INewItem) => {
 
   return (
     <>
-      <div style={{ backgroundColor: "palegoldenrod" }}>
+      <div style={{ backgroundColor: "#FFD8D8" }}>
         <div className="new-item-container">
           <div className="form-field">
             <label title="task name"> Task Title </label>
@@ -36,10 +36,13 @@ export const AddNewItem = ({ card, onSubmit, onCancel }: INewItem) => {
             onClick={() =>
               onSubmit?.({ name: itemName, desc: itemDesc, cardName: card })
             }
+            className="footer-buttons"
           >
             Save
           </button>
-          <button onClick={onCancel}>Cancel</button>
+          <button onClick={onCancel} className="footer-buttons">
+            Cancel
+          </button>
         </div>
       </div>
     </>
