@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./App.css";
-import { DragAndDrop } from "./components/DragAndDrop";
+import { DragAndDrop } from "./components/BoardContainer";
 import { Title } from "./components/Title";
 
 function App() {
