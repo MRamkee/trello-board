@@ -2,7 +2,7 @@
 
 import { Data } from "../interfaces";
 import { AddNewItem } from "./AddNewItem";
-import { CardItem } from "./CardItem";
+import { CardItem } from "./TaskContainer";
 
 interface Props {
   items: Data[];
@@ -83,21 +83,25 @@ export const ContainerCards = ({
       onDrop={handleDrop}
       key={cardName}
     >
-      <h2 className="bottom-line">{cardName}</h2>
+      <span>
+        <h2 className="bottom-line" data-testid="card-title">
+          {cardName}
+        </h2>
+        <a className="close" href="#" data-testid="card-close">
+          &times;
+        </a>
+      </span>
       {/** List the available items in a given card*/}
       <UpdatedCardItems cardName={cardName} handleDragging={handleDragging} />
 
       {/** New Item Container */}
-      <button className="btn" onClick={() => addNewItem(cardName)}>
+      <button
+        className="btn"
+        onClick={() => addNewItem(cardName)}
+        data-testid="add-new-task"
+      >
         Add new task
       </button>
-      {/* {isNewItemEnabled && (
-        <AddNewItem
-          card={cardName}
-          onSubmit={(item) => constructItems(item)}
-          onCancel={() => setNewItem(false)}
-        />
-      )} */}
 
       {/** New Board Modal */}
       <div id="new-task" className="overlay">

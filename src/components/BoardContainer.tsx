@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { uniqBy } from "lodash";
-import { ContainerCards, getItems } from "./ContainerCards";
+import { ContainerCards, getItems } from "./CardsContainer";
 import { useDragAndDrop } from "./UseDragAndDrop";
 import { data, initialCards } from "../assets";
 import { useState } from "react";
