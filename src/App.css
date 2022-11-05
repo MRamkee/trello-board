@@ -104,12 +104,11 @@
   text-align: center;
   font-size: 30px;
   display: block;
-  font-size: 1rem;
+  font-size: 1rem !important;
   height: fit-content;
 }
 
 .grid-item {
-  cursor: grab;
   font-size: 1.25rem !important;
   box-shadow: 5px 5px 5px;
   border-radius: 5px;
@@ -118,7 +117,6 @@
   background-color: #fff !important;
   position: relative;
   padding: 5px;
-  cursor: grab;
   max-width: 250px;
   margin-bottom: 7px;
   min-width: 230px;
@@ -159,13 +157,16 @@ button {
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.7) !important;
-  transition: opacity 500ms;
+  transition: opacity 0ms;
   visibility: hidden;
+  display: none;
   opacity: 0;
 }
 .overlay:target {
   visibility: visible;
   opacity: 1;
+  z-index: 100;
+  height: auto;
 }
 
 .popup {
@@ -227,9 +228,11 @@ border-bottom: 1px solid #3333331a
 
 
 .edit {
+  width: 10%;
   font-size: 10px;
   text-align: right;
   margin-bottom: 0;
+  text-decoration: underline;
 }
 
 .close:hover, .edit:hover {
@@ -240,4 +243,32 @@ border-bottom: 1px solid #3333331a
   display: flex;
     float: right;
     gap: 10px;
+}
+
+.task-title { 
+  cursor: grab;
+}
+
+
+/** input box **/
+input {  
+  padding: 6px 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 4px;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input:focus{
+  color: #212529;
+  background-color: #fff;
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
 }

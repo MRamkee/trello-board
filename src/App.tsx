@@ -1,15 +1,15 @@
 import React from "react";
 
 import "./App.css";
-import { DragAndDrop } from "./components/BoardContainer";
-import { Title } from "./components/Title";
+import { TrelloBoardContainer } from "./components/BoardContainer";
+import { NavHeader } from "./components/NavHeader";
 
 function App() {
   return (
     <div className="App">
-      <Title />
+      <NavHeader />
       <div className="container-body">
-        <DragAndDrop />
+        <TrelloBoardContainer />
       </div>
     </div>
   );

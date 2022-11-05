@@ -1,20 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { uniqBy } from "lodash";
-import { ContainerCards, getItems } from "./CardsContainer";
-import { useDragAndDrop } from "./UseDragAndDrop";
-import { data, initialCards } from "../assets";
 import { useState } from "react";
-import { AddNewItem } from "./AddNewItem";
 
-// Move this to helper
-export const getCards = () => {
-  const t = localStorage?.getItem("cards") as any;
-  const availableCards = t ? JSON.parse(t) : [];
-  return availableCards;
-};
+import { AddEditItem } from "./AddEditItem";
+import { CardsContainer } from "./CardsContainer";
+import { getCards } from "./helpers/getAvailableCards";
+import { useDragAndDrop } from "./helpers/UseDragAndDrop";
+import { data, initialCards } from "../assets/assets";
+import { Data } from "../types/interfaces";
 
-export const DragAndDrop = () => {
+export const TrelloBoardContainer = () => {
   const getInitialCards = () => {
     const cachedCards = uniqBy(getCards(), "cardName")?.filter((item) =>
       Boolean(item.cardName)
@@ -22,7 +19,7 @@ export const DragAndDrop = () => {
     if (cachedCards?.length > 0) {
       return cachedCards;
     } else {
-      localStorage.setItem("cards", JSON.stringify(initialCards));
+      localStorage.setItem("cards", JSON.stringify(data));
       return initialCards;
     }
   };
@@ -38,10 +35,11 @@ export const DragAndDrop = () => {
     handleUpdateList
   } = useDragAndDrop(initialData);
 
-  const addNewCard = (card: any) => {
+  /** Update the Cards Data after you add the new Card */
+  const addNewCard = (card: Data) => {
     const updatedCards = [
       ...cards,
-      { cardName: card?.name, id: cards?.length + 1 }
+      { cardName: card?.content, id: cards?.length + 1 }
     ];
     setCards(updatedCards);
     localStorage.setItem("cards", JSON.stringify(updatedCards));
@@ -51,23 +49,24 @@ export const DragAndDrop = () => {
   const NewBoard = () => {
     return (
       <div>
-        <AddNewItem
+        <AddEditItem
           onSubmit={(item) => addNewCard(item)}
           onCancel={() => (window.location.href = "#")}
+          modalTitle={"Board"}
         />
       </div>
     );
   };
 
   return (
-    <div className="grid">
+    <div className="grid" data-testid="grid-board">
       {initialData?.length &&
-        cards.map((container, index) => (
+        cards.map((container: Data) => (
           <>
-            <ContainerCards
+            <CardsContainer
               items={myList}
               cardName={container.cardName}
-              key={index}
+              key={container.id}
               isDragging={isDragging}
               handleDragging={handleDragging}
               handleUpdateList={handleUpdateList}
@@ -78,7 +77,7 @@ export const DragAndDrop = () => {
 
       <div>
         {/** New Board Modal */}
-        <div id="new-board" className="overlay">
+        <div id="new-board" className="overlay" data-testid="new-board">
           <div className="popup">
             <h2>Add New Board</h2>
             <a className="close" href="#">

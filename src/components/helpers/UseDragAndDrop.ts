@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { uniqBy } from "lodash";
 
-import { Data } from "../interfaces";
+import { Data } from "../../types/interfaces";
 
 export const useDragAndDrop = (initialState: Data[]) => {
   const [isDragging, setIsDragging] = useState(false);

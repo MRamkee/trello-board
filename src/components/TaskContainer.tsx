@@ -1,22 +1,32 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Data } from "../interfaces";
+import { useState } from "react";
+import { Data } from "../types/interfaces";
+import { AddEditItem } from "./AddEditItem";
 
 interface Props {
   data: Data;
   handleDragging: (dragging: boolean) => void;
   removeTaskFromBoard?: (taskId: number) => void;
+  onEditTask?: (editedData: Data) => void;
 }
 
-export const CardItem = ({
+export const TaskItemContainer = ({
   data,
   handleDragging,
-  removeTaskFromBoard
+  removeTaskFromBoard,
+  onEditTask
 }: Props) => {
+  const [isEdit, setIsEdit] = useState(false);
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.setData("text", `${data.id}`);
     handleDragging(true);
   };
   const handleDragEnd = () => handleDragging(false);
+
+  const onEdit = () => {
+    setIsEdit(true);
+    window.location.href = `#edit-${data.id.toString()}`;
+  };
 
   return (
     <>
@@ -32,28 +42,32 @@ export const CardItem = ({
             x
           </p>
         </div>
-
-        <p>{data.content}</p>
-        <p>{data.desc}</p>
-
-        <div>
-          <p
-            className="edit"
-            onClick={() => (window.location.href = `#${data.id}`)}
-          >
-            Edit
-          </p>
+        <div className="task-title">
+          <p>{data.content}</p>
+        </div>
+        <div className="edit">
+          <p onClick={onEdit}>Edit</p>
         </div>
       </div>
 
       {/** Task Details Modal  */}
-      <div id={data.id.toString()} className="overlay">
+
+      <div id={`edit-${data.id.toString()}`} className="overlay">
         <div className="popup">
-          <h2>{data.content}</h2>
+          <h2>Edit Task</h2>
           <a className="close" href="#">
             &times;
           </a>
-          <div className="content">{data.desc}</div>
+          <div className="content">
+            {isEdit && (
+              <AddEditItem
+                taskDetails={data}
+                onCancel={() => (window.location.href = `#`)}
+                onSubmit={onEditTask}
+                modalTitle={"Task"}
+              />
+            )}
+          </div>
         </div>
       </div>
     </>
