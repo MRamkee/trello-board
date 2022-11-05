@@ -77,10 +77,6 @@ export const DragAndDrop = () => {
         ))}
 
       <div>
-        <button onClick={() => (window.location.href = "#new-board")}>
-          Add new board
-        </button>
-
         {/** New Board Modal */}
         <div id="new-board" className="overlay">
           <div className="popup">

@@ -21,9 +21,22 @@ export const CardItem = ({ data, handleDragging }: Props) => {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         key={data.id}
-        onClick={() => (window.location.href = `#${data.id}`)}
       >
+        <div className="task-buttons">
+          <p className="close">x</p>
+        </div>
+
         <p>{data.content}</p>
+        <p>{data.desc}</p>
+
+        <div>
+          <p
+            className="edit"
+            onClick={() => (window.location.href = `#${data.id}`)}
+          >
+            Edit
+          </p>
+        </div>
       </div>
 
       {/** Task Details Modal  */}
