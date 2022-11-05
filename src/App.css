@@ -225,10 +225,15 @@ border-bottom: 1px solid #3333331a
   margin-top: -0.3rem;
 }
 
+
 .edit {
   font-size: 10px;
   text-align: right;
   margin-bottom: 0;
+}
+
+.close:hover, .edit:hover {
+  cursor: pointer;
 }
 
 .task-buttons {

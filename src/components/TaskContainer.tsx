@@ -4,9 +4,14 @@ import { Data } from "../interfaces";
 interface Props {
   data: Data;
   handleDragging: (dragging: boolean) => void;
+  removeTaskFromBoard?: (taskId: number) => void;
 }
 
-export const CardItem = ({ data, handleDragging }: Props) => {
+export const CardItem = ({
+  data,
+  handleDragging,
+  removeTaskFromBoard
+}: Props) => {
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.setData("text", `${data.id}`);
     handleDragging(true);
@@ -23,7 +28,9 @@ export const CardItem = ({ data, handleDragging }: Props) => {
         key={data.id}
       >
         <div className="task-buttons">
-          <p className="close">x</p>
+          <p className="close" onClick={() => removeTaskFromBoard?.(data?.id)}>
+            x
+          </p>
         </div>
 
         <p>{data.content}</p>

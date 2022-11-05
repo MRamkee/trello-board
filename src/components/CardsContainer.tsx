@@ -16,6 +16,7 @@ interface Props {
 interface cardProps {
   cardName: string;
   handleDragging: (dragging: boolean) => void;
+  removeTaskFromBoard: (taskId: number) => void;
 }
 
 export const getItems = () => {
@@ -24,13 +25,22 @@ export const getItems = () => {
   return availableItems;
 };
 
-export const UpdatedCardItems = ({ cardName, handleDragging }: cardProps) => {
+export const UpdatedCardItems = ({
+  cardName,
+  handleDragging,
+  removeTaskFromBoard
+}: cardProps) => {
   const cardItems = getItems();
   return cardItems.map(
     (item: any) =>
       cardName === item.cardName &&
       item.content && (
-        <CardItem data={item} key={item.id} handleDragging={handleDragging} />
+        <CardItem
+          data={item}
+          key={item.id}
+          handleDragging={handleDragging}
+          removeTaskFromBoard={removeTaskFromBoard}
+        />
       )
   );
 };
@@ -61,7 +71,7 @@ export const ContainerCards = ({
     window.location.href = "#new-task";
   };
 
-  const constructItems = (data: any) => {
+  const constructItemsOfNewlyAddedTask = (data: any) => {
     const updatedNewlyAddedItem = [
       ...cardItems,
       {
@@ -73,6 +83,13 @@ export const ContainerCards = ({
     ];
     localStorage.setItem("items", JSON.stringify(updatedNewlyAddedItem));
     updateNewCardData?.(updatedNewlyAddedItem);
+    window.location.href = "#";
+  };
+
+  const removeTaskFromBoard = (taskId: number) => {
+    const updatedTasks = cardItems?.filter((item) => item.id != taskId);
+    localStorage.setItem("items", JSON.stringify(updatedTasks));
+    updateNewCardData?.(updatedTasks);
     window.location.href = "#";
   };
 
@@ -93,7 +110,11 @@ export const ContainerCards = ({
         </a> */}
       </span>
       {/** List the available items in a given card*/}
-      <UpdatedCardItems cardName={cardName} handleDragging={handleDragging} />
+      <UpdatedCardItems
+        cardName={cardName}
+        handleDragging={handleDragging}
+        removeTaskFromBoard={removeTaskFromBoard}
+      />
 
       {/** New Item Container */}
       <button
@@ -114,7 +135,7 @@ export const ContainerCards = ({
           <div className="content">
             <AddNewItem
               card={cardName}
-              onSubmit={(item) => constructItems(item)}
+              onSubmit={(item) => constructItemsOfNewlyAddedTask(item)}
               onCancel={() => (window.location.href = "#")}
             />
           </div>
