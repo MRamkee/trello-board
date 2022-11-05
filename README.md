@@ -6,13 +6,13 @@
 </p>
 
 <p>
-Now we are support the beloew features : 
+Now we are supporting the below features : 
 <ul>
 <li>
-  Add new boards ( By defualt you can see Todo, In Progress, COmpleted" )
+  Add new boards ( By default you can see Todo, In Progress, COmpleted" )
   </li>
   <li>
-   Add New task to each board
+   Add a New task to each board
   </li>
   <li>
    Edit the tasks
