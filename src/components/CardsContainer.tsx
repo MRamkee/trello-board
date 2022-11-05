@@ -82,6 +82,7 @@ export const ContainerCards = ({
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       key={cardName}
+      draggable={true}
     >
       <span>
         <h2 className="bottom-line" data-testid="card-title">
@@ -100,7 +101,7 @@ export const ContainerCards = ({
         onClick={() => addNewItem(cardName)}
         data-testid="add-new-task"
       >
-        Add new task
+        + Add new task
       </button>
 
       {/** New Board Modal */}

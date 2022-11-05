@@ -40,11 +40,30 @@
 /** App Header Body Footer **/
 .title {
   background-color: #028C6A;
-  margin-top: -1.4rem;
-  height: 3.5rem;
   color: #fff;
+  display: table;
+  width: 100%;
+  margin: 0;
+  height: 3rem;
 }
+
+.title > h1 {
+  text-align: left;
+  display: flex;
+  padding-left: 1.5rem;
+  float: left;
+}
+
+.title > .dropdown {
+  text-align: left;
+  padding-right: 1.5rem;
+  float: right;
+  display: flex;
+  gap: 1em;
+}
+
 .container-body {
+  margin: 1rem;
 }
 
 /** Form */
@@ -71,11 +90,13 @@
 
 /** Grid Items */
 .grid {
-  display: grid;
+  display: flex;
   grid-template-columns: 19% 19% 19% 19% 19%;
   gap: 10px;
   padding: 10px;
-  color: #fff
+  color: #fff;
+  flex-flow: row wrap;
+  min-width: 13%;
 }
 
 .grid > div {
@@ -83,10 +104,8 @@
   text-align: center;
   font-size: 30px;
   display: block;
-  margin: 0.5rem;
   font-size: 1rem;
   height: fit-content;
-  box-shadow: inset 0 0 10px;
 }
 
 .grid-item {
@@ -94,13 +113,23 @@
   font-size: 1.25rem !important;
   box-shadow: 5px 5px 5px;
   border-radius: 5px;
+  border-radius: 3px;
+  border-bottom: 1px solid #ccc;
+  background-color: #fff !important;
+  position: relative;
+  padding: 5px;
+  cursor: grab;
+  max-width: 250px;
+  margin-bottom: 7px;
+  min-width: 230px;
+  color: #028c6a;
 }
 
 
 /** Buttons */
 button {
   cursor: pointer;
-  padding: 15px 30px;
+  padding: 10px 10px;
   text-decoration: none;
   font-size: 18px;
   display: block;
@@ -109,13 +138,16 @@ button {
 }
 
 .btn, .btn:link, .btn:visited {
-  background: #f1c40f;
+  background: #0fb3f1fa;
   color: #fefefe;
   transition: box-shadow .18s ease;  
+  font-size: 0.8rem;
 }
 
 .btn:hover {
-    box-shadow: inset 0 0 0 5px darken(#f1c40f, 10%);
+  background-color: #f1c40f;
+  color: white;
+  transition: box-shadow .18s ease-out;
 }
 
 
@@ -184,4 +216,23 @@ border-bottom: 1px solid #3333331a
   margin: 20px auto;
   border: none;
   background-color: #FFD8D8;
+}
+
+.close {
+  font-size: 15px;
+  text-align: right;
+  margin-right: 0.3rem;
+  margin-top: -0.3rem;
+}
+
+.edit {
+  font-size: 10px;
+  text-align: right;
+  margin-bottom: 0;
+}
+
+.task-buttons {
+  display: flex;
+    float: right;
+    gap: 10px;
 }
