@@ -1,23 +1,49 @@
 import React, { useState } from "react";
+import { Data } from "../types/interfaces";
 
 interface INewItem {
   card?: string;
   onSubmit?: (data: any) => void;
   onCancel: () => void;
+  taskDetails?: Data;
+  modalTitle?: string;
 }
-export const AddNewItem = ({ card, onSubmit, onCancel }: INewItem) => {
-  const [itemName, setItemName] = useState("");
-  const [itemDesc, setItemDesc] = useState("");
+
+export const AddEditItem = ({
+  card,
+  onSubmit,
+  onCancel,
+  taskDetails,
+  modalTitle
+}: INewItem) => {
+  const [itemName, setItemName] = useState(taskDetails?.content || "");
+  const [itemDesc, setItemDesc] = useState(taskDetails?.desc || "");
+
+  const onSave = () => {
+    onSubmit?.({
+      content: itemName,
+      desc: itemDesc,
+      cardName: taskDetails?.cardName,
+      id: taskDetails?.id
+    });
+
+    // Clear the data after we save the information
+    setTimeout(() => {
+      setItemName("");
+      setItemDesc("");
+    }, 0);
+  };
 
   return (
     <>
       <div style={{ backgroundColor: "#FFD8D8" }}>
         <div className="new-item-container">
           <div className="form-field">
-            <label title="task name"> Task Title </label>
+            <label title="task name"> {modalTitle} Name </label>
             <input
               type="text"
               name="itemName"
+              value={itemName}
               onChange={(e) => setItemName(e.target.value)}
             />
           </div>
@@ -26,6 +52,7 @@ export const AddNewItem = ({ card, onSubmit, onCancel }: INewItem) => {
             <input
               type="text"
               name="itemDescription"
+              value={itemDesc}
               onChange={(e) => setItemDesc(e.target.value)}
             />
           </div>
@@ -33,9 +60,7 @@ export const AddNewItem = ({ card, onSubmit, onCancel }: INewItem) => {
         <div className="form-footer">
           <button
             disabled={!Boolean(itemName)}
-            onClick={() =>
-              onSubmit?.({ name: itemName, desc: itemDesc, cardName: card })
-            }
+            onClick={onSave}
             className="footer-buttons"
           >
             Save

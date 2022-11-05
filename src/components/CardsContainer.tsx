@@ -1,54 +1,37 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import { Data } from "../interfaces";
-import { AddNewItem } from "./AddNewItem";
-import { CardItem } from "./TaskContainer";
+import { AddEditItem } from "./AddEditItem";
+import { getCards } from "./helpers/getAvailableCards";
+import { getItems } from "./helpers/getAvailableTaskItems";
+import { TaskItemContainer } from "./TaskContainer";
+import { cardProps, Data, Props } from "../types/interfaces";
 
-interface Props {
-  items: Data[];
-  cardName: string;
-  isDragging: boolean;
-  handleDragging: (dragging: boolean) => void;
-  handleUpdateList: (id: number, cardName: string) => void;
-  updateNewCardData?: (data: Data[]) => void;
-}
-
-interface cardProps {
-  cardName: string;
-  handleDragging: (dragging: boolean) => void;
-  removeTaskFromBoard: (taskId: number) => void;
-}
-
-export const getItems = () => {
-  const t = localStorage?.getItem("items") as any;
-  const availableItems = t ? JSON.parse(t) : [];
-  return availableItems;
-};
-
+/** Render the Each Task Item */
 export const UpdatedCardItems = ({
   cardName,
   handleDragging,
-  removeTaskFromBoard
+  removeTaskFromBoard,
+  onEditTask
 }: cardProps) => {
   const cardItems = getItems();
   return cardItems.map(
     (item: any) =>
       cardName === item.cardName &&
       item.content && (
-        <CardItem
+        <TaskItemContainer
           data={item}
           key={item.id}
           handleDragging={handleDragging}
           removeTaskFromBoard={removeTaskFromBoard}
+          onEditTask={onEditTask}
         />
       )
   );
 };
 
-export const ContainerCards = ({
-  items = [],
+/** This Component holds all the Board/Card layouts */
+export const CardsContainer = ({
   cardName,
-  isDragging,
   handleDragging,
   handleUpdateList,
   updateNewCardData
@@ -56,9 +39,6 @@ export const ContainerCards = ({
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
-
-  var cardItems = getItems();
-
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const id = +e.dataTransfer.getData("text");
@@ -66,17 +46,21 @@ export const ContainerCards = ({
     handleDragging(false);
   };
 
+  var cardItems = getItems();
+
+  /** This method will be called when we click on new Task  */
   const addNewItem = (card: string) => {
     localStorage.setItem("cardName", card);
     window.location.href = "#new-task";
   };
 
-  const constructItemsOfNewlyAddedTask = (data: any) => {
+  /** Update the newly added tasks */
+  const constructItemsOfNewlyAddedTask = (data: Data) => {
     const updatedNewlyAddedItem = [
       ...cardItems,
       {
         id: cardItems?.length + Math.floor(Math.random() * 100),
-        content: data?.name,
+        content: data?.content,
         cardName: localStorage.getItem("cardName") || cardName,
         desc: data?.desc
       }
@@ -86,11 +70,38 @@ export const ContainerCards = ({
     window.location.href = "#";
   };
 
+  /** Remove the task in a selected Board */
   const removeTaskFromBoard = (taskId: number) => {
-    const updatedTasks = cardItems?.filter((item) => item.id != taskId);
+    const updatedTasks = cardItems?.filter((item) => item.id !== taskId);
+    localStorage.setItem("items", JSON.stringify(updatedTasks));
+    updateNewCardData?.(updatedTasks);
+  };
+
+  /** Edit the task in a selected Board */
+  const onEditTask = (editedData: Data) => {
+    const updatedTasks = cardItems?.map((item) =>
+      item.id === editedData.id
+        ? {
+            ...item,
+            content: editedData?.content || "",
+            desc: editedData?.desc || "",
+            cardName: editedData.cardName || ""
+          }
+        : item
+    );
     localStorage.setItem("items", JSON.stringify(updatedTasks));
     updateNewCardData?.(updatedTasks);
     window.location.href = "#";
+  };
+
+  /** Remove the Board */
+  const removeBoard = (card: string) => {
+    const updatedTasks = cardItems?.filter((item) => item.cardName !== card);
+    const updatedCards = getCards()?.filter((item) => item.cardName !== card);
+    localStorage.setItem("items", JSON.stringify(updatedTasks));
+    localStorage.setItem("cards", JSON.stringify(updatedCards));
+    updateNewCardData?.(updatedTasks);
+    window.location.reload();
   };
 
   return (
@@ -102,18 +113,30 @@ export const ContainerCards = ({
       draggable={true}
     >
       <span>
+        <div
+          className="task-buttons"
+          style={{ marginTop: "-5px" }}
+          data-testid="remove-card"
+        >
+          <p
+            className="close"
+            onClick={() => removeBoard(cardName)}
+            title="Remove board"
+          >
+            x
+          </p>
+        </div>
         <h2 className="bottom-line" data-testid="card-title">
           {cardName}
         </h2>
-        {/* <a className="close" href="#" data-testid="card-close">
-          &times;
-        </a> */}
       </span>
       {/** List the available items in a given card*/}
+
       <UpdatedCardItems
         cardName={cardName}
         handleDragging={handleDragging}
         removeTaskFromBoard={removeTaskFromBoard}
+        onEditTask={onEditTask}
       />
 
       {/** New Item Container */}
@@ -133,10 +156,11 @@ export const ContainerCards = ({
             &times;
           </a>
           <div className="content">
-            <AddNewItem
+            <AddEditItem
               card={cardName}
               onSubmit={(item) => constructItemsOfNewlyAddedTask(item)}
               onCancel={() => (window.location.href = "#")}
+              modalTitle={"Task"}
             />
           </div>
         </div>

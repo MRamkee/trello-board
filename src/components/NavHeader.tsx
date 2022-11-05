@@ -1,4 +1,4 @@
-export const Title = () => {
+export const NavHeader = () => {
   const handleAddNewBoardClick = (e) => {
     window.location.href = "#new-board";
   };
@@ -17,7 +17,7 @@ export const Title = () => {
           + Add new board
         </button>
         <button className="btn" onClick={handleResetBoardClick}>
-          + Reset the board
+          ⟳ Reset the board
         </button>
       </div>
     </div>
