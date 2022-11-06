@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import { AddEditItem } from "./AddEditItem";
+import { AddEditItem } from "./AddEditItemForm";
 import { getCards } from "./helpers/getAvailableCards";
 import { getItems } from "./helpers/getAvailableTaskItems";
 import { TaskItemContainer } from "./TaskContainer";
@@ -15,7 +15,7 @@ export const UpdatedCardItems = ({
 }: cardProps) => {
   const cardItems = getItems();
   return cardItems.map(
-    (item: any) =>
+    (item: Data) =>
       cardName === item.cardName &&
       item.content && (
         <TaskItemContainer
@@ -73,8 +73,9 @@ export const CardsContainer = ({
   /** Remove the task in a selected Board */
   const removeTaskFromBoard = (taskId: number) => {
     const updatedTasks = cardItems?.filter((item) => item.id !== taskId);
-    localStorage.setItem("items", JSON.stringify(updatedTasks));
     updateNewCardData?.(updatedTasks);
+    localStorage.setItem("items", JSON.stringify(updatedTasks));
+    console.log(taskId, updatedTasks);
   };
 
   /** Edit the task in a selected Board */
@@ -109,7 +110,6 @@ export const CardsContainer = ({
       className={"grid"}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
-      key={cardName}
       draggable={true}
     >
       <span>
@@ -149,7 +149,7 @@ export const CardsContainer = ({
       </button>
 
       {/** New Board Modal */}
-      <div id="new-task" className="overlay">
+      <div id="new-task" className="overlay" data-testid="new-task">
         <div className="popup">
           <h2>Add New Task</h2>
           <a className="close" href="#">
