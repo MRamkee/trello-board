@@ -1,6 +1,68 @@
 # Trello / JIRA board
 
+<h2>Trello board has been developed using PURE React without using any third party libraries (Mobile Friendly) </h2>
+<p>
+  In this App, You create your custom Tasks boards. In which you can the tasks as many as you want
+</p>
+
+<p>
+Now we are supporting the below features : 
+<ul>
+<li>
+  Add new boards ( By default you can see Todo, In Progress, COmpleted" )
+  </li>
+  <li>
+   Add a New task to each board
+  </li>
+  <li>
+   Edit the tasks
+  </li>
+  <li>
+   Remove the unwanted tasks from the board
+  </li>
+  <li>
+   You can reset the entire board
+  </li>
+  <li>
+   You can remove the specific boards as well
+  </li>
+</p>
+
+
+
+<h2> Screenshots </h2>
+
+![image](https://user-images.githubusercontent.com/7554386/200120497-25090f43-6b0f-4a9e-a5db-7b856bf1c34d.png)
+
+<br />
+
+![image](https://user-images.githubusercontent.com/7554386/200120659-1c87ab44-f81a-4edf-8b47-442111a18032.png)
+
+<br />
+
+![image](https://user-images.githubusercontent.com/7554386/200120520-2aa57f95-1e23-4083-a670-336dd2a6f0e6.png)
+
+<br />
+
+![image](https://user-images.githubusercontent.com/7554386/200120545-ce5e4608-397d-4dba-a008-27fcc4857f0e.png)
+
+
+<br />
+
+![image](https://user-images.githubusercontent.com/7554386/200120579-8f2573ad-5af8-4fd1-b217-3fd4c3d1ea58.png)
+
+
+Old Version:
+
 ![image](https://user-images.githubusercontent.com/7554386/199990136-1dcd0a34-547e-4653-a9db-6290139c65d2.png)
+
+
+<h1> How to install </h1>
+<h4> Since we are `not` using any third part dependencies, the istallation is very smooth. </h4>
+<h6> You just have to clone this repo to your local, then go to trello-board folder now run <b> `yarn` </b>. Once after completion of yarn, now run <b> `yarn start` </b>.
+
+Thats it! this application will run on 3000 port on your localhost  (http://localhost:3000/)
+</h6>
 
 <h1> [Live Demo](https://ramkee-trello-board.netlify.app/) <h1>
 
