@@ -39,7 +39,9 @@ export const AddEditItem = ({
       <div style={{ backgroundColor: "#FFD8D8" }}>
         <div className="new-item-container">
           <div className="form-field">
-            <label title="task name"> {modalTitle} Name </label>
+            <label title="name" data-testid="modal-title">
+              {modalTitle} Name
+            </label>
             <input
               type="text"
               name="itemName"
@@ -47,8 +49,11 @@ export const AddEditItem = ({
               onChange={(e) => setItemName(e.target.value)}
             />
           </div>
+
           <div className="form-field">
-            <label title="Task description"> Description </label>
+            <label title="Task Assignee">
+              {modalTitle === "Task" ? `Assignee` : `Description`}
+            </label>
             <input
               type="text"
               name="itemDescription"

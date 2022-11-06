@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from "react";
 import { Data } from "../types/interfaces";
-import { AddEditItem } from "./AddEditItem";
+import { AddEditItem } from "./AddEditItemForm";
 
 interface Props {
   data: Data;

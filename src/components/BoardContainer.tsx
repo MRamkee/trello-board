@@ -4,11 +4,11 @@
 import { uniqBy } from "lodash";
 import { useState } from "react";
 
-import { AddEditItem } from "./AddEditItem";
+import { AddEditItem } from "./AddEditItemForm";
 import { CardsContainer } from "./CardsContainer";
 import { getCards } from "./helpers/getAvailableCards";
 import { useDragAndDrop } from "./helpers/UseDragAndDrop";
-import { data, initialCards } from "../assets/assets";
+import { initialCards } from "../assets/assets";
 import { Data } from "../types/interfaces";
 
 export const TrelloBoardContainer = () => {
@@ -19,13 +19,13 @@ export const TrelloBoardContainer = () => {
     if (cachedCards?.length > 0) {
       return cachedCards;
     } else {
-      localStorage.setItem("cards", JSON.stringify(data));
+      localStorage.setItem("cards", JSON.stringify(initialCards));
       return initialCards;
     }
   };
 
-  const [initialData, setData] = useState(data);
-  const [cards, setCards] = useState<any[]>(getInitialCards());
+  const [initialData, setData] = useState(initialCards);
+  const [cards, setCards] = useState<Data[]>(getInitialCards());
   const [myList, setMyList] = useState([]);
 
   const {
@@ -46,22 +46,20 @@ export const TrelloBoardContainer = () => {
     window.location.href = "#";
   };
 
-  const NewBoard = () => {
-    return (
-      <div>
-        <AddEditItem
-          onSubmit={(item) => addNewCard(item)}
-          onCancel={() => (window.location.href = "#")}
-          modalTitle={"Board"}
-        />
-      </div>
-    );
-  };
+  const NewBoard = () => (
+    <div>
+      <AddEditItem
+        onSubmit={(item) => addNewCard(item)}
+        onCancel={() => (window.location.href = "#")}
+        modalTitle={"Board"}
+      />
+    </div>
+  );
 
   return (
-    <div className="grid" data-testid="grid-board">
+    <div className="grid" data-testid="grid-board" key={0}>
       {initialData?.length &&
-        cards.map((container: Data) => (
+        cards.map((container: Data, index: number) => (
           <>
             <CardsContainer
               items={myList}
@@ -75,17 +73,15 @@ export const TrelloBoardContainer = () => {
           </>
         ))}
 
-      <div>
-        {/** New Board Modal */}
-        <div id="new-board" className="overlay" data-testid="new-board">
-          <div className="popup">
-            <h2>Add New Board</h2>
-            <a className="close" href="#">
-              &times;
-            </a>
-            <div className="content">
-              <NewBoard />
-            </div>
+      {/** New Board Modal */}
+      <div id="new-board" className="overlay" data-testid="new-board">
+        <div className="popup">
+          <h2>Add New Board</h2>
+          <a className="close" href="#">
+            &times;
+          </a>
+          <div className="content">
+            <NewBoard />
           </div>
         </div>
       </div>
