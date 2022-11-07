@@ -126,9 +126,10 @@ export const CardsContainer = ({
             x
           </p>
         </div>
-        <h2 className="bottom-line" data-testid="card-title">
+        <h2 className="card-title" data-testid="card-title">
           {cardName}
         </h2>
+        <h2 className="bottom-line" />
       </span>
       {/** List the available items in a given card*/}
 

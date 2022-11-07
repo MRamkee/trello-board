@@ -18,11 +18,10 @@ export const useDragAndDrop = (initialState: Data[]) => {
 
     if (card) {
       card.cardName = cardName;
-
       setListItems((prev) => {
         let updatedCardItems = [
           card!,
-          ...prev.filter((item) => item.id !== id && item.content !== "")
+          ...cardItems.filter((item) => item.id !== id && item.content !== "")
         ];
         localStorage.setItem("items", JSON.stringify(updatedCardItems));
         return updatedCardItems;
