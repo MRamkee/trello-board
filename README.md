@@ -9,7 +9,7 @@
 Now we are supporting the below features : 
 <ul>
 <li>
-  Add new boards ( By default you can see Todo, In Progress, COmpleted" )
+  Add new dynamic boards ( By default you can see Todo, In Progress, Completed" )
   </li>
   <li>
    Add a New task to each board
