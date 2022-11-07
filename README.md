@@ -93,6 +93,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+### `yarn lint`
+Launches the Lint command line interface.
+It will tryt o find out the code lint failure and gives us the 
+
+![image](https://user-images.githubusercontent.com/7554386/200237620-dd76e913-74e4-40a8-b094-f7b522340cc4.png)
+
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
