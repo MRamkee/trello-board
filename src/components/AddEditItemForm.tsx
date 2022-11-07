@@ -62,18 +62,18 @@ export const AddEditItem = ({
             />
           </div>
         </div>
-        <div className="form-footer">
-          <button
-            disabled={!Boolean(itemName)}
-            onClick={onSave}
-            className="footer-buttons"
-          >
-            Save
-          </button>
-          <button onClick={onCancel} className="footer-buttons">
-            Cancel
-          </button>
-        </div>
+      </div>
+      <div className="form-footer">
+        <button
+          disabled={!Boolean(itemName)}
+          onClick={onSave}
+          className="footer-buttons"
+        >
+          Save
+        </button>
+        <button onClick={onCancel} className="footer-buttons">
+          Cancel
+        </button>
       </div>
     </>
   );
